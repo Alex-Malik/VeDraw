@@ -19,12 +19,17 @@ namespace VeDraw.ViewModels
         {
             // Initialize observable (for binding) collection of figures
             Figures = new ObservableCollection<VDFigure>();
+            Figures.Add(new VDFigure());
 
             // Initialize commands
             OpenCommand = new Command(Open, CanOpen);
             SaveCommand = new Command(Save, CanSave);
             CreateFigureCommand = new Command(CreateFigure, CanCreateFigure);
             DeleteCommand = new Command(Delete, CanDelete);
+
+            // After all commands and properties initialized
+            // we can make just added figure selected
+            SelectedItem = Figures.First();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -36,9 +36,6 @@
             <sys:Double x:Key="Common.Control.Double.FontSize">14</sys:Double>
             <FontFamily x:Key="Common.Control.Font">Consolas</FontFamily>
             
-            
-            
-
             <utils:StringToGeometryConverter x:Key="StringToGeometryConverter" />
             <utils:TokenToGeometryConverter x:Key="TokenToGeometryConverter" />
 
@@ -106,7 +103,29 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            
+
+            <Style TargetType="{x:Type ToolTip}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Background" Value="{StaticResource Common.Control.Brush.Background}" />
+                <Setter Property="Foreground" Value="{StaticResource Common.Control.Brush.Foreground}" />
+                <Setter Property="Placement" Value="Bottom" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToolTip}">
+                            <Grid Margin="14">
+                                <Border Background="{TemplateBinding Background}" Height="{StaticResource Common.Control.Double.Height}">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="7" />
+                                    </Border.Effect>
+                                </Border>
+                                <ContentPresenter Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <Style x:Key="Style.TextBlock" TargetType="{x:Type TextBlock}">
                 <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
                 <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -320,6 +339,7 @@
                 <Setter Property="Width" Value="{StaticResource Common.Control.Double.Width}" />
                 <Setter Property="Height" Value="{StaticResource Common.Control.Double.Height}" />
                 <Setter Property="Margin" Value="7 0" />
+                <Setter Property="Padding" Value="1" />
 
                 <Setter Property="Template">
                     <Setter.Value>
@@ -329,102 +349,91 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}">
-                                <Path x:Name="foreground" Focusable="False" Margin="1"
+                                <Path x:Name="foreground" Focusable="False" Margin="{TemplateBinding Padding}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                     Fill="{TemplateBinding Background}"
                                     Stroke="{TemplateBinding Foreground}"
                                     StrokeThickness="1" Stretch="Uniform"
                                     Data="{TemplateBinding Content, Converter={StaticResource StringToGeometryConverter}}" />
                             </Border>
-                            <ControlTemplate.Triggers>
-                                <!-- Mouse Over Animation -->
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" />
-                                                <ThicknessAnimation Duration="00:00:00.125" To="-2"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="Margin" />
-                                                <ThicknessAnimation Duration="00:00:00.125" BeginTime="00:00:00.125" To="1"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="Margin" />
-                                                <DoubleAnimation Duration="00:00:00.125" BeginTime="00:00:00.125" To="2"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="StrokeThickness" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground}"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" />
-                                                <DoubleAnimation Duration="00:00:00.250" To="1"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="StrokeThickness" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" />
-                                                <ThicknessAnimation Duration="00:00:00.125" To="-2"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="Margin" />
-                                                <ThicknessAnimation Duration="00:00:00.125" BeginTime="00:00:00.125" To="1"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="Margin" />
-                                                <DoubleAnimation Duration="00:00:00.125" BeginTime="00:00:00.125" To="2"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="StrokeThickness" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground}"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" />
-                                                <DoubleAnimation Duration="00:00:00.250" To="1"
-                                                    Storyboard.TargetName="foreground"
-                                                    Storyboard.TargetProperty="StrokeThickness" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
+                            
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+
+                <Style.Triggers>
+                    <!-- Mouse Over Animation -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
+                                                    Storyboard.TargetProperty="(ToggleButton.Foreground).(SolidColorBrush.Color)" />
+                                    <ThicknessAnimation Duration="00:00:00.125" To="-2"
+                                                    Storyboard.TargetProperty="Padding" />
+                                    <ThicknessAnimation Duration="00:00:00.125" BeginTime="00:00:00.125" To="1"
+                                                    Storyboard.TargetProperty="Padding" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground}"
+                                                    Storyboard.TargetProperty="(ToggleButton.Foreground).(SolidColorBrush.Color)" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Duration="00:00:00.250" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
+                                                    Storyboard.TargetProperty="(ToggleButton.Foreground).(SolidColorBrush.Color)" />
+                                    <ThicknessAnimation Duration="00:00:00.250" To="-2"
+                                                    Storyboard.TargetProperty="Padding" />
+                                    
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Duration="00:00:00.125" To="{StaticResource Common.Control.Color.Foreground}"
+                                                    Storyboard.TargetProperty="(ToggleButton.Foreground).(SolidColorBrush.Color)" />
+                                    <ThicknessAnimation Duration="00:00:00.125" To="1"
+                                                    Storyboard.TargetProperty="Padding" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
-            <Style x:Key="Style.ToggleButton.ToolBar.Drawing.Line" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource Style.ToggleButton.ToolBar.Drawing}">
+            <Style x:Key="Style.ToggleButton.ToolBar.Drawing.Line" TargetType="{x:Type ToggleButton}" 
+                   BasedOn="{StaticResource Style.ToggleButton.ToolBar.Drawing}">
                 <Setter Property="Content" Value="M 0 100 L 100 0" />
+                <Setter Property="ToolTip" Value="Command to draw a simple line" />
             </Style>
 
             <Style x:Key="Style.ToggleButton.ToolBar.Drawing.CubicCurve" TargetType="{x:Type ToggleButton}" 
                    BasedOn="{StaticResource Style.ToggleButton.ToolBar.Drawing}">
                 <Setter Property="Content" Value="M 0 100 C 0 0 100 100 100 0" />
+                <Setter Property="ToolTip" Value="Command to draw a cublic Bezier curve" />
             </Style>
 
             <Style x:Key="Style.ToggleButton.ToolBar.Drawing.QuadraticCurve" TargetType="{x:Type ToggleButton}" 
                    BasedOn="{StaticResource Style.ToggleButton.ToolBar.Drawing}">
                 <Setter Property="Content" Value="M 0 100 Q 0 0 100 0" />
+                <Setter Property="ToolTip" Value="Command to draw a quadratic Bezier curve" />
             </Style>
 
             <Style  x:Key="Style.ToggleButton.ToolBar.Drawing.StartWithMove" TargetType="{x:Type ToggleButton}" 
                    BasedOn="{StaticResource Style.ToggleButton.ToolBar.Drawing}">
                 <Setter Property="Content" Value="M 0 0 H 6 L 3 4 L 0 0" />
+                <Setter Property="ToolTip" Value="Command to start each new element with point" />
+                
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
                         <Setter Property="Content" Value="M 0 0 H 6 M 7 1 L 4 5 M 2 5 L -1 1" />

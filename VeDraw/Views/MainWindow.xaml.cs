@@ -32,11 +32,8 @@ namespace VeDraw
         public MainWindow()
         {
             InitializeComponent();
-
-            Model = new MainWindowViewModel();
-            Model.Figures.Add(new VDFigure());
-
-            DataContext = Model;
+            
+            DataContext = Model = new MainWindowViewModel();
             DrawingCommandButtons = new []{ dcb1, dcb2, dcb3 };
         }
 
