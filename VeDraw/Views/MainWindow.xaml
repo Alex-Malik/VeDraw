@@ -1,0 +1,89 @@
+﻿<Window x:Class="VeDraw.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VeDraw.Controls"
+        mc:Ignorable="d"
+        Style="{DynamicResource Style.Window}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ToolBar -->
+        <StackPanel Grid.Row="0" Style="{StaticResource Style.StackPanel.ToolBar}">
+            <Button Style="{StaticResource Style.Button.ToolBar.Open}" Command="{Binding OpenCommand}" />
+            <Button Style="{StaticResource Style.Button.ToolBar.Save}" Command="{Binding SaveCommand}" />
+            <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.Line}" Click="OnClickAddLineButton" x:Name="dcb1" />
+            <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.CubicCurve}" Click="OnClickAddCubicCurveButton" x:Name="dcb2" />
+            <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.QuadraticCurve}" Click="OnClickAddQuadraticCurveButton" x:Name="dcb3" />
+            <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.StartWithMove}" IsChecked="{Binding StartWithMove, ElementName=vdc}" />
+        </StackPanel>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" Style="{StaticResource Style.Grid.Content}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--Left side panel -->
+            <GroupBox Grid.Column="0" Width="300" Style="{DynamicResource Style.GroupBox}" Header="Properties">
+                <!--<ScrollViewer>-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Style.TextBlock.Property}" Text="Name" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Style.TextBlock.Property}" Text="Fill Color" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Style.TextBlock.Property}" Text="Stroke Color" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Style.TextBlock.Property}" Text="Stroke Thickness" />
+
+                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource Style.TextBox}" Text="{Binding SelectedFigure.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource Style.TextBox}" Text="{Binding SelectedFigure.FillColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource Style.TextBox}" Text="{Binding SelectedFigure.StrokeColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource Style.TextBox}" Text="{Binding SelectedFigure.StrokeThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+                <!--</ScrollViewer>-->
+            </GroupBox>
+
+            <!-- Drawing area -->
+            <local:VDCanvas x:Name="vdc" Grid.Column="1" Style="{StaticResource Style.VDCanvas}"
+                Figures="{Binding Figures}" CurrentFigure="{Binding SelectedFigure}" CurrentToken="{Binding SelectedToken}" 
+                MouseDown="OnVDCanvasMouseDown"/>
+
+            <!-- Right side panel (Project tree) -->
+            <GroupBox Grid.Column="2" Width="350" Style="{StaticResource Style.GroupBox}" Header="Project">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Style="{StaticResource Style.StackPanel.ToolBar}">
+                        <Button Style="{StaticResource Style.Button.ToolBar.Create}" Command="{Binding CreateFigureCommand}" />
+                        <Button Style="{StaticResource Style.Button.ToolBar.Delete}" Command="{Binding DeleteCommand}" />
+                    </StackPanel>
+                    <TreeView Grid.Row="1"  Style="{StaticResource Style.TreeView}"
+                        ItemsSource="{Binding Figures}" 
+                        ItemTemplateSelector="{StaticResource TreeViewDataTemplateSelector}"
+                        SelectedItemChanged="OnSelectedItemChangedTreeView"/>
+                </Grid>
+                
+            </GroupBox>
+        </Grid>
+
+        <TextBox Grid.Row="2" Style="{StaticResource Style.TextBox.Markup}" Text="{Binding SelectedFigure.Markup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</Window>
