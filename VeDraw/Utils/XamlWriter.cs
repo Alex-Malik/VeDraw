@@ -32,11 +32,11 @@ namespace VeDraw.Utils
                 {
                     // Generate Path markup from given figure
                     content += $"<Path x:Name=\"{figure.Name}\" "
-                        + $"Fill=\"{figure.FillColor}\""
-                        + $"Stroke=\"{figure.StrokeColor}\""
-                        + $"StrokeThickness=\"{figure.StrokeThickness}\""
-                        + $"Data=\"{figure.Markup}\""
-                        + " />\n\r";
+                        + $"Fill=\"{figure.FillColor}\" "
+                        + $"Stroke=\"{figure.StrokeColor}\" "
+                        + $"StrokeThickness=\"{figure.StrokeThickness}\" "
+                        + $"Data=\"{figure.Markup}\" "
+                        + "/>\n\r";
                 }
 
                 // Remove new line symbols from the end
