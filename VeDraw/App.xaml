@@ -7,7 +7,8 @@
     xmlns:ctrls="clr-namespace:VeDraw.Controls"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="VeDraw.App"
-    StartupUri="Views/MainWindow.xaml">
+    StartupUri="Views/MainWindow.xaml"
+    DispatcherUnhandledException="OnDispatcherUnhandledException">
     <Application.Resources>
         <ResourceDictionary>
             <!-- Namin rule: [Category].[TargetType].[TargetPropertyType].[TargetProperty].[Theme|Event]-->

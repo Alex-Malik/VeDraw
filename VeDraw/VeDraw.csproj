@@ -69,6 +69,10 @@
     <Compile Include="Models\SmoothCubicBezierCurve.cs" />
     <Compile Include="Models\SmoothQuadraticBezierCurve.cs" />
     <Compile Include="Models\Token.cs" />
+    <Page Include="Views\ErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,7 +87,11 @@
     <Compile Include="Utils\VDTreeViewDataTemplateSelector.cs" />
     <Compile Include="Utils\XamlReader.cs" />
     <Compile Include="Utils\XamlWriter.cs" />
+    <Compile Include="ViewModels\ErrorWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\ErrorWindow.xaml.cs">
+      <DependentUpon>ErrorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
