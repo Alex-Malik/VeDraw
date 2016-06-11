@@ -35,6 +35,10 @@ namespace VeDraw.Utils
             {
                 return Application.Current.Resources["DataTemplate.TreeView.QuadraticBezierCurve"] as DataTemplate;
             }
+            else if (item is Close)
+            {
+                return Application.Current.Resources["DataTemplate.TreeView.Close"] as DataTemplate;
+            }
             else
             {
                 return base.SelectTemplate(item, container);

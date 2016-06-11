@@ -326,6 +326,10 @@ namespace VeDraw.Controls
                     Cache.MouseDownPoint.X + 50.0,
                     Cache.MouseDownPoint.Y - 50.0);
             }
+            else if (CreateCommand == VDCanvasCommand.CreateClose)
+            {
+                token = new Close();
+            }
 
             // Add just created token to the figure
             CurrentFigure.Tokens.Add(token);
@@ -560,6 +564,7 @@ namespace VeDraw.Controls
         CreateCubicCurve,
         CreateQuadraticCurve,
         CreateSmoothCubicCurve,
-        CreateSmoothQuadraticCurve
+        CreateSmoothQuadraticCurve,
+        CreateClose
     }
 }

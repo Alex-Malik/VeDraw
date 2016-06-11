@@ -57,7 +57,13 @@ namespace VeDraw
             ToggleOnDrawingCommandButton((ToggleButton)sender);
             vdc.CreateCommand = VDCanvasCommand.CreateQuadraticCurve;
         }
-        
+
+        private void OnClickAddCloseButton(object sender, RoutedEventArgs e)
+        {
+            ToggleOffDrawingCommandButtons();
+            vdc.CreateCommand = VDCanvasCommand.CreateClose;
+        }
+
         private void OnSelectedItemChangedTreeView(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var tv = sender as TreeView;

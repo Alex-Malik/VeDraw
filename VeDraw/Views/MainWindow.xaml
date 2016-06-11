@@ -20,6 +20,7 @@
             <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.Line}" Click="OnClickAddLineButton" x:Name="dcb1" />
             <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.CubicCurve}" Click="OnClickAddCubicCurveButton" x:Name="dcb2" />
             <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.QuadraticCurve}" Click="OnClickAddQuadraticCurveButton" x:Name="dcb3" />
+            <Button Style="{StaticResource Style.Button.ToolBar.Drawing.Close}" Click="OnClickAddCloseButton" />
             <ToggleButton Style="{StaticResource Style.ToggleButton.ToolBar.Drawing.StartWithMove}" IsChecked="{Binding StartWithMove, ElementName=vdc}" />
         </StackPanel>
 
