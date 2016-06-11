@@ -484,7 +484,7 @@
             <!--#endregion-->
 
             <!--#region TreeView & TreeView.Items Styles-->
-
+            
             <Style x:Key="Style.TreeView" TargetType="{x:Type TreeView}">
                 <Setter Property="Foreground" Value="{StaticResource Common.Control.Brush.Foreground}"/>
                 <Setter Property="Background" Value="{StaticResource Common.Control.Brush.Transparent}"/>
@@ -530,117 +530,129 @@
                 <Setter Property="ItemContainerStyle">
                     <Setter.Value>
                         <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="Foreground" Value="{StaticResource Common.Control.Brush.Foreground}"/>
-                            <Setter Property="Background" Value="{StaticResource Common.Control.Brush.Transparent}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource Common.Control.Brush.Transparent}"/>
-                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="OverridesDefaultStyle" Value="True" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
 
-                            
+                            <Setter Property="Foreground" Value="{StaticResource Common.Control.Brush.Foreground}" />
+                            <Setter Property="Background" Value="{StaticResource Common.Control.Brush.Transparent}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource Common.Control.Brush.BorderBrush}" />
+                            <Setter Property="BorderThickness" Value="0" />
+
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                                        <ControlTemplate.Resources>
+                                            <Style x:Key="TemplateStyle.ToggleButton" TargetType="{x:Type ToggleButton}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                            <Border Padding="7">
+                                                                <Path x:Name="element" Data="M 0 0 L 0 6 L 6 0 Z"
+                                                                    Fill="{TemplateBinding BorderBrush}"
+                                                                    Stroke="{TemplateBinding BorderBrush}">
+                                                                    <Path.RenderTransform>
+                                                                        <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
+                                                                    </Path.RenderTransform>
+                                                                </Path>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsChecked" Value="True">
+                                                                    <Setter Property="RenderTransform" TargetName="element">
+                                                                        <Setter.Value>
+                                                                            <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ControlTemplate.Resources>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <ToggleButton x:Name="expander" Style="{StaticResource TemplateStyle.ToggleButton}"
+                                                ClickMode="Press"
+                                                IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Foreground="{TemplateBinding Foreground}"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                Width="{StaticResource Common.Control.Double.Width}"
+                                                Height="{StaticResource Common.Control.Double.Height}" />
+                                            <Border Grid.Row="0" Grid.Column="1"
+                                                Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter x:Name="PART_Header" 
+                                                        ContentSource="Header" 
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                                            </Border>
+                                            <ItemsPresenter Grid.Row="1" Grid.ColumnSpan="2" x:Name="ItemsHost" />
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsExpanded" Value="false">
+                                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                                            </Trigger>
+                                            <Trigger Property="HasItems" Value="false">
+                                                <Setter TargetName="expander" Property="Visibility" Value="Hidden"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="true">
+                                                <Setter TargetName="PART_Header" Property="TextElement.FontWeight" Value="Bold" />
+                                                <Setter TargetName="PART_Header" Property="TextElement.Foreground" 
+                                                        Value="{StaticResource Common.Control.Brush.Foreground.MouseOver}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="PART_Header" Property="TextElement.Foreground" 
+                                                        Value="{StaticResource Common.Control.Brush.Foreground.MouseOver}" />
+                                            </Trigger>
+                                            <!--<MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsSelected" Value="true"/>
+                                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                                </MultiTrigger.Conditions>
+                                                
+                                            </MultiTrigger>-->
+                                            <!--<Trigger Property="IsEnabled" Value="false">
+                                                
+                                            </Trigger>-->
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </Setter.Value>
                 </Setter>
             </Style>
-            
-            <Style x:Key="Style.TreeViewItem" TargetType="{x:Type TreeViewItem}">
-                <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="SnapsToDevicePixels" Value="True" />
 
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TreeViewItem}">
-                            <Border x:Name="container" 
-                                Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter 
-                                    TextElement.Foreground="{TemplateBinding Foreground}"
-                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <!-- Mouse Over Animation -->
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.200" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
-                                                    Storyboard.TargetProperty="(TreeViewItem.Foreground).(SolidColorBrush.Color)" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.200" To="{StaticResource Common.Control.Color.Foreground}"
-                                                    Storyboard.TargetProperty="(TreeViewItem.Foreground).(SolidColorBrush.Color)" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                                <!-- Focused Amimation -->
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.200" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
-                                                    Storyboard.TargetProperty="(TextBox.Foreground).(SolidColorBrush.Color)" />
-                                                <ColorAnimation Duration="00:00:00.200" To="{StaticResource Common.Control.Color.Foreground.MouseOver}"
-                                                    Storyboard.TargetProperty="(TextBox.BorderBrush).(SolidColorBrush.Color)" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Duration="00:00:00.200" To="{StaticResource Common.Control.Color.Foreground}"
-                                                    Storyboard.TargetProperty="(TextBox.Foreground).(SolidColorBrush.Color)" />
-                                                <ColorAnimation Duration="00:00:00.200" To="{StaticResource Common.Control.Color.Foreground}"
-                                                    Storyboard.TargetProperty="(TextBox.BorderBrush).(SolidColorBrush.Color)" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            
             <Style x:Key="Style.Path.DataTemplate" TargetType="{x:Type Path}">
-                <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
                 <Setter Property="SnapsToDevicePixels" Value="True" />
 
                 <Setter Property="Fill" Value="{StaticResource Common.Control.Brush.Transparent}" />
-                <Setter Property="Stroke" Value="{StaticResource Common.Control.Brush.Foreground}" />
+                <Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TreeViewItem}}" />
                 <Setter Property="StrokeThickness" Value="1" />
                 <Setter Property="Stretch" Value="Uniform" />
                 <Setter Property="Width" Value="{StaticResource Common.Control.Double.Width}" />
                 <Setter Property="Height" Value="{StaticResource Common.Control.Double.Height}" />
-                <Setter Property="Margin" Value="0 0 0 0" />
+                <Setter Property="Margin" Value="0" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
-
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Stroke" Value="{StaticResource Common.Control.Brush.Foreground.MouseOver}" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
 
             <Style x:Key="Style.TextBlock.DataTemplate" TargetType="{x:Type TextBlock}">
-                <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
                 <Setter Property="SnapsToDevicePixels" Value="True" />
-                
-                <Setter Property="Background" Value="{StaticResource Common.Control.Brush.Transparent}" />
-                <Setter Property="Foreground" Value="{StaticResource Common.Control.Brush.Foreground}" />
                 <Setter Property="Margin" Value="7 0 0 0" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
-
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Foreground" Value="{StaticResource Common.Control.Brush.Foreground.MouseOver}" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
 
             <HierarchicalDataTemplate x:Key="DataTemplate.TreeView.Figure" DataType="model:VDFigure" ItemsSource="{Binding Tokens}">
@@ -649,7 +661,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="{Binding Markup, Converter={StaticResource StringToGeometryConverter}}" />
+                    <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="{Binding Markup, Converter={StaticResource StringToGeometryConverter}}" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TreeViewItem}}" />
                     <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}" Text="{Binding Name}" />
                 </Grid>
             </HierarchicalDataTemplate>
@@ -662,14 +674,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data=""/>
-                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}Move ({0} {1})">
-                                <Binding Path="X" />
-                                <Binding Path="Y" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}" Text="Move" />
                 </Grid>
             </HierarchicalDataTemplate>
 
@@ -694,14 +699,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="M 0 100 L 100 0"/>
-                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}Line ({0} {1})">
-                                <Binding Path="X" />
-                                <Binding Path="Y" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}" Text="Line" />
                 </Grid>
             </HierarchicalDataTemplate>
 
@@ -713,19 +711,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="M 0 100 C 0 0 100 100 100 0"/>
-                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}Cubic Bezier Curve ({0} {1} {2} {3} {4} {5})">
-                                <Binding Path="X1" />
-                                <Binding Path="Y1" />
-                                <Binding Path="X2" />
-                                <Binding Path="Y2" />
-                                <Binding Path="X3" />
-                                <Binding Path="Y3" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="M 0 100 C 0 0 100 100 100 0" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}" Text="Cubic Bezier Curve" />
                 </Grid>
             </HierarchicalDataTemplate>
 
@@ -737,17 +724,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="M 0 100 Q 0 0 100 0"/>
-                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}Quadratic Bezier Curve ({0} {1} {2} {3})">
-                                <Binding Path="X1" />
-                                <Binding Path="Y1" />
-                                <Binding Path="X2" />
-                                <Binding Path="Y2" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <Path Grid.Column="0" Style="{StaticResource Style.Path.DataTemplate}" Data="M 0 100 Q 0 0 100 0" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource Style.TextBlock.DataTemplate}" Text="Quadratic Bezier Curve" />
                 </Grid>
             </HierarchicalDataTemplate>
 
