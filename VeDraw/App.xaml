@@ -103,6 +103,7 @@
                         </DrawingBrush>
                     </Setter.Value>
                 </Setter>
+                <!--<Setter Property="Background" Value="LightBlue" />-->
             </Style>
 
             <Style TargetType="{x:Type ToolTip}">

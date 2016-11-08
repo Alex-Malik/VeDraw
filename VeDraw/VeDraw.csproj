@@ -120,6 +120,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="MainWindow.cd" />
+    <None Include="MainWindowViewModel.cd" />
+    <None Include="VDCanvas.cd" />
+    <None Include="Tokens-Commands.cd" />
+    <None Include="Tokens-Lines.cd" />
+    <None Include="Tokens-Curves.cd" />
+    <None Include="Tokens-Curves-Smooth.cd" />
+    <None Include="Tokens.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

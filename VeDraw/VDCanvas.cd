@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VeDraw.Controls.VDCanvas">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="VeDraw.Controls.VDCanvas.VDCanvasCache" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\VDCanvas.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Enum Name="VeDraw.Controls.VDCanvas.VDCanvasMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\VDCanvas.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IAQUAACgQIAEAAAIQAIUAACwABIBAEAKICAIIAICQgA=</HashCode>
+      <FileName>Controls\VDCanvas.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentFigure" />
+      <Property Name="CurrentToken" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Figures" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="VeDraw.Models.Token" Collapsed="true">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Token.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeDraw.Models.VDFigure" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEgAAAAACAAAAABAAAAAAQAgAQEABAACAAAIQgBAAE=</HashCode>
+      <FileName>Models\Figure.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Enum Name="VeDraw.Controls.VDCanvasCommand">
+    <Position X="5.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAABAoAAAAAAIAEAAAA=</HashCode>
+      <FileName>Controls\VDCanvas.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
